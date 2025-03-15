@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个性化学习界面</title>
+    <link rel="stylesheet" href="uniqueLearn.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.4.2/dist/vue.js"></script>
+    <style>
+        /* 全局样式 */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        /* 导航栏样式 */
+        nav {
+            background-color: white;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 20px;
+            border-bottom: 1px solid #e0e0e0;
+
+        }
+
+        nav a {
+            color: #666;
+            text-decoration: none;
+            padding: 10px 15px;
+            transition: color 0.3s ease;
+        }
+
+        
+
+        
+
+        /* 整体容器样式 */
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-gap: 20px;
+            padding: 20px;
+        }
+
+        /* 每个模块的样式 */
+        .module {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* 选课模块样式 */
+        .course-selection {
+            background-color: #8A2BE2;
+        }
+
+        /* 互动课堂模块样式 */
+        .interactive-classroom {
+            background-color: #FF69B4;
+        }
+
+        /* 错题本模块样式 */
+        .mistake-collection {
+            background-color: #00FF7F;
+        }
+
+        /* 作业模块样式 */
+        .homework {
+            background-color: #00BFFF;
+        }
+
+        /* 考试模块样式 */
+        .examination {
+            background-color: #FFA500;
+        }
+
+        /* 课外驿站等子模块样式 */
+        .sub-module {
+            background-color: #FFFF00;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 课堂资源包模块样式 */
+        .resource-package {
+            background-color: #00FF00;
+        }
+
+        /* 学分乐园模块样式 */
+        .credit {
+            background-color: #D8BFD8;
+        }
+
+        /* 网课视频等子模块样式 */
+        .online-video {
+            background-color: #8B008B;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            color: white;
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 个人中心模块样式 */
+        .my-space {
+            background-color: #9370DB;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* 头像及信息样式 */
+        .profile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        /* 设置按钮样式 */
+        .settings {
+            align-self: flex-end;
+        }
+
+        img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        .module:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <nav>
+            <a href="#">个性化学习</a>
+            <a href="#">动态</a>
+            <a href="#">消息</a>
+            <a href="javascript:void(0)" @click="goToStudyPage">学习生涯</a>
+            <a href="#">关于12xue</a>
+            <span></span>
+        </nav>
+        <div class="container">
+            <div class="module course-selection">
+                <h3>选课</h3>
+                <p>Course selection</p>
+            </div>
+            <div class="module interactive-classroom">
+                <h3>互动课堂</h3>
+                <p>Interactive classroom</p>
+            </div>
+            <div class="module mistake-collection">
+                <h3>错题本</h3>
+                <p>mistake collection</p>
+            </div>
+            <div class="module homework">
+                <h3>作业</h3>
+                <p>homework</p>
+            </div>
+            <div class="module examination">
+                <span class="试用">试用</span>
+                <h3>考试</h3>
+                <p>examination</p>
+                <div class="sub-module">课外驿站</div>
+                <div class="sub-module">兴趣体验</div>
+                <div class="sub-module">有点意思</div>
+            </div>
+            <div class="module my-space">
+                <div class="profile">
+                    <img src="头像.jpg" alt="头像">
+                    <span class="lv">LV.12</span>
+                    <h3>{{studentName}}</h3>
+                    <p>学号：{{studentId}}</p>
+                    <p>高中 2020级一班</p>
+                    <p>山东省菏泽市第一中学</p>
+                </div>
+                <div class="settings">
+
+
+                </div>
+                <a href='个人信息.html'>个人中心</a>
+                <p>my space</p>
+            </div>
+            <div class="module resource-package">
+                <h3>课堂资源包</h3>
+                <p>resource package</p>
+            </div>
+            <div class="module credit">
+                <h3>学分乐园</h3>
+                <p>credit</p>
+            </div>
+            <div class="module">
+                <div class="online-video">
+                    <p>网课视频</p>
+                    <p>Online class video</p>
+                </div>
+                <div class="online-video">
+                    <p>我的应用</p>
+                    <p>application</p>
+                </div>
+            </div>
+            
+        </div>
+        
+    </div>
+    <script src="uniqueLearn.js"></script>
+</body>
+
+</html>

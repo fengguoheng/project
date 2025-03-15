@@ -1,0 +1,59 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.login-container {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 300px;
+}
+
+.login-container h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.login-container input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.login-container button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-container button:hover {
+    background-color: #0056b3;
+}
+body {
+    /* 纯色背景，这里以浅灰色为例 */
+    background-color: #122861; 
+    /* 或者使用图片作为背景，假设图片在当前目录下，名为 background.jpg */
+    background-image: url('background.jpg');
+    /* 设置背景图片是否重复 */
+    /* background-repeat: no-repeat; */
+    /* 设置背景图片的位置，这里设置为居中 */
+    /* background-position: center; */
+    /* 设置背景图片是否固定，不随页面滚动而滚动 */
+    /* background-attachment: fixed; */
+}

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2024年测试</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        .top-bar {
+            background-color: #3cb371;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-bar-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .top-bar-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .top-bar span {
+            margin-right: 15px;
+        }
+
+        .message-badge {
+            position: relative;
+        }
+
+        .message-badge::after {
+            content: "2";
+            position: absolute;
+            top: -5px;
+            right: -8px;
+            background-color: #ff0000;
+            color: white;
+            font-size: 12px;
+            padding: 2px 5px;
+            border-radius: 50%;
+        }
+
+        .main-nav {
+            background-color: #5f9ea0;
+            padding: 15px 20px;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            margin-right: 50px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-right: 30px;
+        }
+
+        .search-box {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-box select {
+            padding: 5px 10px;
+            margin-right: 5px;
+        }
+
+        .search-box input {
+            padding: 5px 10px;
+            border: none;
+        }
+
+        .search-box button {
+            padding: 5px 10px;
+            border: none;
+            background-color: #5f9ea0;
+            color: white;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 20px auto;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .title-bar {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .filter-bar {
+            padding: 15px 20px;
+            background: #f0f9eb;
+            margin: 10px;
+            border-radius: 4px;
+        }
+
+        .filter-btn {
+            margin-right: 10px;
+            padding: 6px 12px;
+            border: 1px solid #dcdfe6;
+            background: white;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            border: 1px solid #e9ecef;
+            padding: 12px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        th {
+            background: #f0f9eb;
+            color: #606266;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="top-bar">
+            <div class="top-bar-left">
+                <span>12xue 老师同学家长共同成长的天地！</span>
+            </div>
+            <div class="top-bar-right">
+                <span>欢迎{{teacherName}}老师！</span>
+                <span>🎒 12习题+6素材</span>
+                <div class="message-badge">消息</div>
+                <span>个人中心</span>
+                <span>班级设置</span>
+                <span>使用帮助</span>
+                <span>退出</span>
+            </div>
+        </div>
+        <div class="main-nav">
+            <div class="nav-container">
+                <div class="logo">十二学学校</div>
+                <div class="nav-links">
+                    <a href="#">教学空间</a>
+                    <a href="#">教务空间</a>
+                    <a href="#">学情分析</a>
+                    <a href="#">资源广场</a>
+                    <a href="#">12xue广角</a>
+                </div>
+                <div class="search-box">
+                    <select>
+                        <option>全部</option>
+                        <option>习题</option>
+                        <option>素材</option>
+                    </select>
+                    <input type="text" placeholder="搜索">
+                    <button>搜索</button>
+                </div>
+            </div>
+        </div>
+        <div class="main-container">
+            <div class="title-bar">2023年高考适应性测试</div>
+            <div class="filter-bar">
+                <button class="filter-btn">总分</button>
+                <button class="filter-btn">全部班级</button>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>姓名</th>
+                        <th>考号</th>
+                        <th>学号</th>
+                        <th>班级</th>
+                        <th>标签</th>
+                        <th>选科组合</th>
+                        <th>原始成绩</th>
+                        <th>赋分成绩</th>
+                        <th>等级</th>
+                        <th>联考排名</th>
+                        <th>区县排名</th>
+                        <th>学校排名</th>
+                        <th>班级排名</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>柳子童</td>
+                        <td>2408110030</td>
+                        <td>2100030</td>
+                        <td>102</td>
+                        <td>--</td>
+                        <td>物地政</td>
+                        <td>586</td>
+                        <td>651</td>
+                        <td>--</td>
+                        <td>8</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                    </tr>
+                    <!-- 重复tr实现更多行数据 -->
+                    <tr>
+                        <td>王晨宇</td>
+                        <td>2408111967</td>
+                        <td>2111967</td>
+                        <td>102</td>
+                        <td>--</td>
+                        <td>物化生</td>
+                        <td>602.5</td>
+                        <td>640</td>
+                        <td>--</td>
+                        <td>23</td>
+                        <td>3</td>
+                        <td>3</td>
+                        <td>3</td>
+                    </tr>
+                    <!-- 复制tr补充完整数据 -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        const { createApp } = Vue;
+        const app = createApp({
+            data() {
+                return {
+                    teacherName: ""
+                };
+            },
+            created() {
+                this.teacherName = localStorage.getItem('teacherName');
+            }
+        });
+        app.mount('#app');
+    </script>
+</body>
+
+</html>

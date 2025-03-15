@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>首页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        .top-bar {
+            background-color: #3cb371;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-bar-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .top-bar-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .top-bar span {
+            margin-right: 15px;
+        }
+
+        .message-badge {
+            position: relative;
+        }
+
+        .message-badge::after {
+            content: "2";
+            position: absolute;
+            top: -5px;
+            right: -8px;
+            background-color: #ff0000;
+            color: white;
+            font-size: 12px;
+            padding: 2px 5px;
+            border-radius: 50%;
+        }
+
+        .main-nav {
+            background-color: #5f9ea0;
+            padding: 15px 20px;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            margin-right: 50px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-right: 30px;
+        }
+
+        .search-box {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-box select {
+            padding: 5px 10px;
+            margin-right: 5px;
+        }
+
+        .search-box input {
+            padding: 5px 10px;
+            border: none;
+        }
+
+        .search-box button {
+            padding: 5px 10px;
+            border: none;
+            background-color: #5f9ea0;
+            color: white;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            padding: 20px;
+        }
+
+        .left-panel {
+            width: 300px;
+            padding-right: 20px;
+        }
+
+        .create-class-btn {
+            background-color: #52c41a;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: block;
+            margin-bottom: 15px;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        .class-list {
+            border: 1px solid #e8e8e8;
+            border-radius: 4px;
+            padding: 15px;
+        }
+
+        .class-item {
+            margin-bottom: 10px;
+            padding: 8px;
+            border: 1px solid #e8e8e8;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .main-content {
+            flex: 1;
+        }
+
+        .class-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .class-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .class-code {
+            margin-left: 10px;
+            color: #ff4d4f;
+        }
+
+        .add-student-btn {
+            background-color: #52c41a;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .tab-nav {
+            border-bottom: 1px solid #e8e8e8;
+            margin-bottom: 15px;
+        }
+
+        .tab-item {
+            display: inline-block;
+            padding: 8px 16px;
+            margin-right: 10px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+
+        .tab-item.active {
+            border-bottom: 2px solid #52c41a;
+        }
+
+        .search-area {
+            margin-bottom: 15px;
+        }
+
+        .search-area input,
+        .search-area button {
+            margin-right: 5px;
+            padding: 5px 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #e8e8e8;
+        }
+
+        th,
+        td {
+            border: 1px solid #e8e8e8;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .operation-btn {
+            background-color: #73d13d;
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border: 1px solid #e8e8e8;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        /* 关闭按钮样式 */
+        .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        /* 表格样式 */
+        .popup-table {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .popup-table th,
+        .popup-table td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        /* 按钮样式 */
+        .add-time-btn,
+        .save-btn {
+            padding: 8px 20px;
+            border: 1px solid #5cdbd3;
+            background: white;
+            color: #5cdbd3;
+            cursor: pointer;
+        }
+
+        .save-btn {
+            display: block;
+            margin: 20px auto 0;
+        }
+
+        .leave-info {
+            margin-top: 10px;
+        }
+
+        .time-item {
+            display: flex;
+            align-items: center;
+            margin: 8px 0;
+        }
+
+        .time-item input,
+        .time-item select {
+            margin-right: 10px;
+            padding: 6px;
+            border: 1px solid #5cdbd3;
+            border-radius: 4px;
+        }
+
+        .delete-btn {
+            background: none;
+            border: none;
+            color: #ff4444;
+            cursor: pointer;
+        }
+
+        .add-more-btn {
+            margin-top: 10px;
+            padding: 8px 20px;
+            border: 1px solid #5cdbd3;
+            background: white;
+            color: #5cdbd3;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="top-bar">
+            <div class="top-bar-left">
+                <span>12xue 老师同学家长共同成长的天地！</span>
+            </div>
+            <div class="top-bar-right">
+                <span>欢迎{{teacherName}}老师！</span>
+                <span>🎒 12习题+6素材</span>
+                <div class="message-badge">消息</div>
+                <span>个人中心</span>
+                <span>班级设置</span>
+                <span>使用帮助</span>
+                <span>退出</span>
+            </div>
+        </div>
+        <div class="main-nav">
+            <div class="nav-container">
+                <div class="logo">十二学学校</div>
+                <div class="nav-links">
+                    <a href="#">教学空间</a>
+                    <a href="教务空间.html">教务空间</a>
+                    <a href="#">学情分析</a>
+                    <a href="#">资源广场</a>
+                    <a href="#">12xue广角</a>
+                </div>
+                <div class="search-box">
+                    <select>
+                        <option>全部</option>
+                        <option>习题</option>
+                        <option>素材</option>
+                    </select>
+                    <input type="text" placeholder="搜索">
+                    <button>搜索</button>
+                </div>
+            </div>
+            <div class="container">
+                <!-- 左侧面板 -->
+                <div class="left-panel">
+                    <button class="create-class-btn">+ 创建班级</button>
+                    <div class="class-list">
+                        <div class="class-item">2023级二班 <span>🗑️</span></div>
+                        <div class="class-item">2023级一班 <span>🗑️</span></div>
+                        <div class="class-item">2023级五十九班 <span>🗑️</span></div>
+                        <div class="class-item">2023级六十班 <span>🗑️</span></div>
+                        <div class="class-item">2022级兴趣1 <span>📁 🗑️</span></div>
+                        <div class="class-item">2022级一班 <span>🗑️</span></div>
+                        <div class="class-item">2017级一班 <span>🗑️</span></div>
+                    </div>
+                </div>
+
+                <!-- 主要内容区 -->
+                <div class="main-content">
+                    <!-- 班级头部信息 -->
+                    <div class="class-header">
+                        <div class="class-info">
+                            <span>高中 2023级二班</span>
+                            <span class="class-code">(班级代码：51151599)</span>
+                        </div>
+                        <button class="add-student-btn">添加学生</button>
+                    </div>
+
+                    <!-- 标签导航 -->
+                    <div class="tab-nav">
+                        <span class="tab-item">本班管理</span>
+                        <span class="tab-item">班级分组</span>
+                        <span class="tab-item">学生加入审核</span>
+                        <span class="tab-item">学生退出审核</span>
+                        <span class="tab-item">学生打分权限设置</span>
+                        <span class="tab-item active">请假记录管理</span>
+                    </div>
+
+                    <!-- 搜索区域 -->
+                    <div class="search-area">
+                        <input type="text" placeholder="2025年1月">
+                        <input type="text" placeholder="学生姓名搜索">
+                        <button>查询</button>
+                    </div>
+
+                    <!-- 表格数据 -->
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>学生姓名</th>
+                                <th>帐号名</th>
+                                <th>事假时间</th>
+                                <th>事假类型</th>
+                                <th>事假天</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>魏思辰</td>
+                                <td>Jlwjzj002</td>
+                                <td>2025/05/10-2025/05/16</td>
+                                <td>小事</td>
+                                <td>6天</td>
+                                <td><button class="operation-btn">编辑</button></td>
+                            </tr>
+                            <!-- 其他表格行数据 -->
+                            <tr>
+                                <td>{{id}}</td>
+                                <td>{{name}}</td>
+                                <td>wwyjz002</td>
+                                <td>{{time}}</td>
+                                <td>小事</td>
+                                <td>2天</td>
+                                <td><button @click='isEdit=true' class="operation-btn">编辑</button></td>
+                            </tr>
+                            <!-- 省略其他行，可复制上面结构添加 -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div v-if='isEdit' class="popup">
+                <span @click='isEdit=false' class="popup-close">×</span>
+                <table class="popup-table">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>学生姓名</th>
+                            <th>帐号名</th>
+                            <th>班级</th>
+                            <th>时间</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>{{name}}</td>
+                            <td>jwwsa6</td>
+                            <td>2024级一班</td>
+                            <td>2025年1月</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div v-if='noEvent' class="leave-info">
+                    <p style="color: #5cdbd3;">事假情况:</p>
+                    <button @click='noEvent=false;oneEvent=true;' class="add-time-btn">+ 添加请假时间</button>
+                </div>
+                <div>
+                    <!-- 初始的请假时间输入框 -->
+                    <div v-if="!noEvent&&oneEvent" class="time-item">
+                        <input type="date" v-model="timeItems[0].startDate" placeholder="开始时间">
+                        <span>—</span>
+                        <input type="date" v-model="timeItems[0].endDate" placeholder="结束时间">
+                        <select v-model="timeItems[0].type">
+                            <option value="小事">小事</option>
+                            <option value="参艺">参艺</option>
+                            <option value="其他">其他</option>
+                        </select>
+                        <button class="delete-btn" @click="deleteTimeItem(0)">×</button>
+                        
+                    </div>
+
+                    <!-- 后续动态添加的请假时间输入框 -->
+                    <div v-if="!noEvent " v-for="(item, index) in timeItems.slice(1)" :key="index"
+                        class="time-item">
+                        <input type="date" v-model="item.startDate" placeholder="开始时间">
+                        <span>—</span>
+                        <input type="date" v-model="item.endDate" placeholder="结束时间">
+                        <select v-model="item.type">
+                            <option value="小事">小事</option>
+                            <option value="参艺">参艺</option>
+                            <option value="其他">其他</option>
+                        </select>
+                        <button class="delete-btn" @click="deleteTimeItem(index + 1)">×</button>
+                    </div>
+
+                    <!-- 始终显示的继续添加按钮 -->
+                    <button v-if="!noEvent" class="add-more-btn" @click="addTimeItem">继续添加请假时间</button>
+                </div>
+                <button @click='isEdit=false' class="save-btn">保存</button>
+            </div>
+
+        </div>
+
+    </div>
+    </div>
+</body>
+<script>
+    // 获取 Vue 3 的全局 API
+    const { createApp } = Vue;
+
+    // 创建 Vue 3 实例
+    const app = createApp({
+        // 选项式 API：定义数据
+        data() {
+            return {
+                teacherName: "",
+                password: "",
+                id: '',
+                isEdit: false,
+                timeItems: [
+                    {
+                        startDate: '',
+                        endDate: '',
+                        type: '小事'
+                    }
+                ],
+                oneEvent: false,
+                noEvent: true,
+                id:'',
+                name:'',
+                time:'',
+            };
+        },
+        // 选项式 API：定义方法
+        methods: {
+            addTimeItem() {
+                this.timeItems.push({
+                    startDate: '',
+                    endDate: '',
+                    type: '小事'
+                });
+            },
+            deleteTimeItem(index) {
+                this.timeItems.splice(index, 1);
+            }
+
+        },
+        created() {
+            this.teacherName = localStorage.getItem('teacherName');
+            this.id=localStorage.getItem('id');
+            this.name=localStorage.getItem('name');
+            this.time=localStorage.getItem('time');
+        }
+    });
+
+    // 挂载 Vue 3 实例到 DOM 元素
+    app.mount('#app');
+
+</script>
+
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>教师登录界面</title>
+</head>
+
+<body>
+    <div id="app">
+        <p>教师登录</p>
+        <p>工号：<input v-model="id"></p>
+        <p>
+            用户名：<input v-model="teacherName">
+        </p>
+        <p>
+            密码：<input v-model="password">
+        </p>
+        <button @click="login">登录</button>
+    </div>
+
+</body>
+<script>
+    // 获取 Vue 3 的全局 API
+    const { createApp } = Vue;
+
+    // 创建 Vue 3 实例
+    const app = createApp({
+        // 选项式 API：定义数据
+        data() {
+            return {
+                teacherName: "",
+                password: "",
+                id:'',
+            };
+        },
+        // 选项式 API：定义方法
+        methods: {
+            login() {
+                // 在这里编写登录逻辑
+                fetch('http://localhost:3000/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        teacherName: this.teacherName,
+                        password: this.password,
+                        id:this.id
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    localStorage.setItem('teacherName', data.teacherName);
+                    localStorage.setItem('id',data.id);
+                    localStorage.setItem('name',data.name);
+                    localStorage.setItem('time',data.time);
+                    console.log(localStorage.getItem('id'));
+                    console.log(data.id);
+                    console.log(data.time);
+                })
+                console.log(localStorage.getItem('teacherName'));
+                console.log(localStorage.getItem('id'));
+                console.log(localStorage.getItem('name'));
+                console.log(localStorage.getItem('time'));
+                
+                window.location.href = '首页.html';
+            }
+        }
+    });
+
+    // 挂载 Vue 3 实例到 DOM 元素
+    app.mount('#app');
+
+</script>
+
+</html>

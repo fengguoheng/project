@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        .nav-bar {
+            display: flex;
+            align-items: center;
+            height: 60px;
+            background-color: #ffffff;
+            border-bottom: 1px solid #e5e5e5;
+            padding: 0 20px;
+        }
+
+        .back-arrow {
+            width: 0;
+            height: 0;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            border-right: 12px solid #00c7b6;
+            margin-right: 15px;
+        }
+
+        .title {
+            font-size: 20px;
+            color: #333333;
+            line-height: 1;
+        }
+
+        /* 教师列表样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        .teacher-list {
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+
+        .teacher-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .teacher-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .subject {
+            font-size: 18px;
+            color: #333;
+            margin-right: 20px;
+        }
+
+        .teacher-name {
+            font-size: 18px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .survey-link {
+            display: flex;
+            align-items: center;
+            color: #999;
+            font-size: 16px;
+        }
+
+        .arrow {
+            width: 0;
+            height: 0;
+            border-top: 4px solid transparent;
+            border-bottom: 4px solid transparent;
+            border-left: 6px solid #333;
+            margin-left: 10px;
+        }
+
+        .survey-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 600px;
+            background: #fff;
+            border: 1px solid #ccc;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .popup-header {
+            padding: 20px;
+            background: #eee;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .survey-option {
+            padding: 20px;
+            border-bottom: 1px solid #ccc;
+            font-size: 20px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .survey-option.checked::before {
+            
+            position: absolute;
+            left: 20px;
+            color: #000;
+        }
+
+        .confirm-btn {
+            width: 100%;
+            padding: 15px;
+            background: #00c7b6;
+            color: white;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+
+        
+    </style>
+</head>
+
+<body>
+    <!-- 将导航栏包裹在单独的 div 中，避免与 Vue 挂载点冲突 -->
+    <div id="app">
+        <div class="nav-bar">
+            <span @click="back" class="back-arrow"></span>
+            <span class="title">讲课风格调查</span>
+        </div>
+        <div class="teacher-list">
+            <ul>
+                <li class="teacher-item">
+                    <div class="teacher-info">
+                        <span class="subject">物理</span>
+                        <span class="teacher-name">宋学明</span>
+                        <span> 老师</span>
+                    </div>
+                    <div class="survey-link">
+                        {{result}}
+                        <span @click='isPop=!isPop' class="arrow"></span>
+                    </div>
+                </li>
+                <li class="teacher-item">
+                    <div class="teacher-info">
+                        <span class="subject">语文</span>
+                        <span class="teacher-name">周鸿升</span>
+                        <span> 老师</span>
+                    </div>
+                    <div class="survey-link">
+                        讲课风格接受度调查
+                        <span class="arrow"></span>
+                    </div>
+                </li>
+                <li class="teacher-item">
+                    <div class="teacher-info">
+                        <span class="subject">化学</span>
+                        <span class="teacher-name">倪馨</span>
+                        <span> 老师</span>
+                    </div>
+                    <div class="survey-link">
+                        讲课风格接受度调查
+                        <span class="arrow"></span>
+                    </div>
+                </li>
+            </ul>
+            <div v-if='isPop' id='selcetion' class="survey-popup">
+                <div class="popup-header">物理 宋学明 老师 讲课风格接受度调查</div>
+                <span v-if="isclick1">&radic;</span><div @click="result='完全接受';isclick1=!isclick1;" class="survey-option">完全接受</div>
+                <span v-if="isclick2">&radic;</span><div @click="result='部分接受';isclick2=!isclick2" class="survey-option checked">部分接受</div>
+                <span v-if="isclick3">&radic;</span><div class="survey-option">不适合我</div>
+                <button @click='isPop=false; updateResult()' class="confirm-btn">确定</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                isPop: false,
+                result: '',
+                isclick1: false,
+                isclick2: false,
+                isclick3: false,
+            }
+        },
+        methods: {
+            back() {
+                console.log('触发返回');
+                window.location.href = '学习生涯首页.html';
+            },
+            updateResult() {
+                fetch('http://localhost:3000/updateResult', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        studentId: localStorage.getItem('studentId'),
+                        result: this.result,
+                    }),
+                });
+            },
+        },
+        created() {
+            this.result = localStorage.getItem('result');
+            console.log(this.result);
+            console.log('1111111');
+        },
+    }).mount('#app');
+</script>

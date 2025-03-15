@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        .top-bar {
+            background-color: #3cb371;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-bar-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .top-bar-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .top-bar span {
+            margin-right: 15px;
+        }
+
+        .message-badge {
+            position: relative;
+        }
+
+        .message-badge::after {
+            content: "2";
+            position: absolute;
+            top: -5px;
+            right: -8px;
+            background-color: #ff0000;
+            color: white;
+            font-size: 12px;
+            padding: 2px 5px;
+            border-radius: 50%;
+        }
+
+        .main-nav {
+            background-color: #5f9ea0;
+            padding: 15px 20px;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            margin-right: 50px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-right: 30px;
+        }
+
+        .search-box {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-box select {
+            padding: 5px 10px;
+            margin-right: 5px;
+        }
+
+        .search-box input {
+            padding: 5px 10px;
+            border: none;
+        }
+
+        .search-box button {
+            padding: 5px 10px;
+            border: none;
+            background-color: #5f9ea0;
+            color: white;
+        }
+    </style>
+    <style>
+        body {
+            background: #f5f5f5;
+            font-family: Arial, sans-serif;
+        }
+
+        .sidebar {
+            width: 220px;
+            margin: 20px;
+        }
+
+        .module {
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .module-header {
+            padding: 15px;
+            color: #52c41a;
+            display: flex;
+            align-items: center;
+        }
+
+        .module-header::before {
+            content: "||";
+            margin-right: 10px;
+        }
+
+        .module-content {
+            padding: 10px 30px;
+        }
+
+        .item {
+            color: #999;
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .item::before {
+            content: "";
+            width: 16px;
+            height: 16px;
+            margin-right: 10px;
+            background: #f5f5f5;
+            border-radius: 2px;
+        }
+
+        .active {
+            color: #52c41a;
+        }
+
+        .border-module {
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="top-bar">
+            <div class="top-bar-left">
+                <span>12xue 老师同学家长共同成长的天地！</span>
+            </div>
+            <div class="top-bar-right">
+                <span>欢迎{{teacherName}}老师！</span>
+                <span>🎒 12习题+6素材</span>
+                <div class="message-badge">消息</div>
+                <span>个人中心</span>
+                <span>班级设置</span>
+                <span>使用帮助</span>
+                <span>退出</span>
+            </div>
+        </div>
+        <div class="main-nav">
+            <div class="nav-container">
+                <div class="logo">十二学学校</div>
+                <div class="nav-links">
+                    <a href="#">教学空间</a>
+                    <a href="#">教务空间</a>
+                    <a href="#">学情分析</a>
+                    <a href="#">资源广场</a>
+                    <a href="#">12xue广角</a>
+                </div>
+                <div class="search-box">
+                    <select>
+                        <option>全部</option>
+                        <option>习题</option>
+                        <option>素材</option>
+                    </select>
+                    <input type="text" placeholder="搜索">
+                    <button>搜索</button>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar">
+            <div class="module">
+                <div class="module-header">统计</div>
+                <div class="module-content">
+                    <div class="item"><span class="active">线下学生考试测评排名</span></div>
+                    <div class="item">活跃度统计</div>
+                    <div class="item">课堂使用统计</div>
+                    <div class="item">作业使用统计</div>
+                    <div class="item">校本资源统计</div>
+                    <div class="item">作业未完成统计</div>
+                    <div class="item">学生生涯规划分析</div>
+                </div>
+            </div>
+
+            <div class="module border-module">
+                <div class="module-header">生涯规划</div>
+                <div class="module-content">
+                    <div class="item">生涯规划师记录管理</div>
+                    <div class="item">生涯规划师权限管理</div>
+                </div>
+            </div>
+
+            <div class="module">
+                <div class="module-header">用户管理</div>
+                <div class="module-content">
+                    <div class="item">老师管理</div>
+                    <div class="item">家长管理</div>
+                    <div class="item">学生管理</div>
+                    <div class="item">管理人员设置</div>
+                    <div class="item">角色管理</div>
+                    <div class="item">老师邀请码管理</div>
+                </div>
+            </div>
+
+            <div class="module">
+                <div class="module-header">其他</div>
+                <div class="module-content">
+                    <div class="item">校本资源审核</div>
+                    <div class="item">校本封面管理</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        const { createApp } = Vue;
+        const app = createApp({
+            data() {
+                return {
+                    teacherName: ""
+                };
+            },
+            created() {
+                this.teacherName = localStorage.getItem('teacherName');
+            }
+        });
+        app.mount('#app');
+    </script>
+</body>
+
+</html>

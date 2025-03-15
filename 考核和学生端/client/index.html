@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <script>
+        const poems = [
+            "夫百代之过客也，人生之逆旅也",
+            "浮生若梦，为欢几何",
+            "明朝散发弄扁舟",
+            "江海寄余生",
+            "一蓑烟雨任平生",
+            "劝君莫惜金缕衣"
+        ];
+        const randomPoemIndex = Math.floor(Math.random() * poems.length);
+        document.body.style.setProperty('--random-poem', `"${poems[randomPoemIndex]}"`);
+    </script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 注册表单 -->
+        <div class="register-form" v-if="!isLoggedIn &&!isLoginForm &&!isFinding">
+            <h1>一个简单的项目</h1>
+            <h2>注册</h2>
+            <input v-model="registerUsername" placeholder="Username">
+            <input v-model="registerPassword" type="password" placeholder="Password">
+            <button @click="register">注册</button>
+            <button @click="toggleForm">登录</button>
+            <button @click="toFind">找回密码</button>
+            <button @click="toPractise">十二xue登录入口</button>
+        </div>
+        <!-- 登录表单 -->
+        <div class="login-form" v-if="!isLoggedIn && isLoginForm &&!isEditing">
+            <h2>登录</h2>
+            <input v-model="loginUsername" placeholder="姓名">
+            <input v-model="loginPassword" type="password" placeholder="密码">
+            <div v-html="captchaSvg.data"></div>
+            <input v-model="captcha" placeholder="验证码">
+            <button @click="getCaptcha">刷新验证码</button>
+            <button @click="login">登录</button>
+            <button @click="toggleForm">注册</button>
+        </div>
+        <!-- 个人信息界面 -->
+        <div class="user-info" v-if="isLoggedIn">
+            <h2>个人信息</h2>
+            <p>姓名: {{ user.username }}</p>
+            <p>邮箱: {{ user.email }}</p>
+            <p>电话: {{ user.phone }}</p>
+
+            <button @click="editInfo">编辑信息</button>
+            <button @click="logout">退出</button>
+            <a href="practise.html" id="learnCareer" style="width:300px">学习生涯</a>
+            <!-- 编辑信息表单 -->
+            <div class="edit-form" v-if="isEditing">
+                <input v-model="newInfo.email" placeholder="邮箱">
+                <input v-model="newInfo.phone" placeholder="电话">
+                <button @click="saveInfo">保存</button>
+                <button @click="cancelEdit">取消</button>
+            </div>
+        </div>
+        <!-- 找回密码表单 -->
+        <div class="find-password-form" v-if="isFinding &&!isResetting">
+            <h2>问题:你最喜欢的一句话是什么？</h2>
+            <input v-model="loginUsername" placeholder="姓名">
+            <input v-model="answer" placeholder="答案">
+            <button @click="findPassword">找回密码</button>
+            <button @click="toReset">重置密码</button>
+            <button @click="toRegister">返回上一页</button>
+        </div>
+        <!--重置密码页面-->
+        <div class="reset-password-form" v-if="isResetting">
+            <h2>设置密码：</h2>
+            <input v-model="loginUsername" placeholder="姓名">
+            <input v-model="newPassword" type="password" placeholder="新密码">
+            <button @click="resetPassword">保存</button>
+            <button @click="backToFind">返回上一页</button>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.4.2/dist/vue.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>

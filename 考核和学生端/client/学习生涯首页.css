@@ -1,0 +1,155 @@
+/* 全局样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+}
+
+/* 导航栏样式 */
+nav {
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+nav a {
+    color: #666;
+    text-decoration: none;
+    padding: 10px 15px;
+    transition: color 0.3s ease;
+}
+nav a:hover {
+    color: black;
+}
+
+nav a.active {
+    color: black;
+    background-color: #ffff00;
+}
+.subject-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.subject-item {
+    width: 200px;
+    height: 150px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+}
+
+
+
+
+.icon {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+/* 主体内容样式 */
+main {
+    padding: 20px;
+}
+
+.subject-summary {
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.right-content {
+    display: flex;
+    align-items: center;
+}
+
+.arrow {
+    margin-left: 5px;
+    color: #999;
+}
+
+.tab-switch {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.tab-switch a {
+    color: #666;
+    text-decoration: none;
+    padding: 10px 15px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.tab-switch a.active {
+    color: #0099ff;
+    border-bottom: 2px solid #0099ff;
+}
+
+.subject-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.subject-item {
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    padding: 15px;
+    text-align: center;
+}
+.right-content span {
+    padding-right: 10px; /* 可根据需求调整内边距大小 */
+}
+.arrow {
+    cursor: pointer; /* 添加这一行，让鼠标划过时变成手掌形状 */
+}
+.confirm-btn {
+    background-color: #007BFF; /* 将背景色改为蓝色 */
+    color: black; /* 文本颜色保持白色 */
+    border-radius: 3px;
+    cursor: pointer;
+}
+.Popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 20px;
+    z-index: 1000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+

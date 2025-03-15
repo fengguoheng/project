@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        /* 全局样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Microsoft YaHei", sans-serif;
+            background-color: #f0f2f5;
+        }
+
+        /* 导航栏样式 */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+            background-color: #ffffff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-left a {
+            font-size: 24px;
+            color: #666666;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+
+        .navbar-left span {
+            font-size: 18px;
+            font-weight: 500;
+            color: #333333;
+        }
+
+        /* 下拉菜单样式 */
+        .dropdown {
+            position: relative;
+            margin-right: 15px;
+        }
+
+        .dropbtn {
+            padding: 8px 16px;
+            background-color: #ffffff;
+            border: 1px solid #dcdde1;
+            border-radius: 20px;
+            font-size: 14px;
+            color: #666666;
+            cursor: pointer;
+        }
+
+        .dropdown-content {
+            position: absolute;
+            top: 36px;
+            right: 0;
+            width: 150px;
+            background-color: #ffffff;
+            border: 1px solid #dcdde1;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .dropdown-content a,
+
+
+        /* 确定按钮样式 */
+        .confirm-btn {
+            padding: 10px 20px;
+            background-color: #00c7b6;
+            color: #ffffff;
+            border: none;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .confirm-btn:hover {
+            background-color: #00a89d;
+        }
+
+        /* 文本输入区域样式 */
+        .textarea-container {
+            margin: 20px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .textarea-container textarea {
+            width: 100%;
+            height: 120px;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            color: #333333;
+            resize: none;
+            background-color: transparent;
+            outline: none;
+        }
+
+        /* 表情图标样式 */
+        .emoji-icon {
+            margin: 20px;
+            font-size: 24px;
+            color: #666666;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .emoji-icon:hover {
+            color: #00c7b6;
+        }
+
+
+
+
+
+
+        .myPop {
+            border: 1px solid #ccc;
+            /* 容器边框 */
+            width: 200px;
+            /* 容器宽度 */
+            background: #fff;
+            /* 白色背景 */
+        }
+
+        .myPop a:first-child {
+            background: #e0e0e0;
+            /* 标题浅灰背景 */
+            text-align: center;
+            /* 文字居中 */
+            padding: 10px;
+            /* 内边距 */
+            pointer-events: none;
+            /* 禁止点击交互 */
+            cursor: default;
+            /* 鼠标样式设为默认 */
+            font-size: 16px;
+            /* 字体大小 */
+            display: block;
+            /* 块级元素 */
+        }
+
+        .myPop button {
+            width: 100%;
+            /* 按钮撑满容器宽度 */
+            border: none;
+            /* 移除默认边框 */
+            border-top: 1px solid #ccc;
+            /* 顶部边框 */
+            padding: 12px;
+            /* 内边距 */
+            text-align: center;
+            /* 文字居中 */
+            background: #fff;
+            /* 白色背景 */
+            cursor: pointer;
+            /* 鼠标悬停样式 */
+            position: relative;
+            /* 相对定位，为伪元素做准备 */
+            font-size: 16px;
+            /* 字体大小 */
+        }
+
+        .myPop button:first-child {
+            border-top: none;
+            /* 第一个按钮移除顶部边框（避开标题下方） */
+        }
+
+        .myPop button.checked::before {
+            content: "✓";
+            /* 选中时显示的对勾 */
+            position: absolute;
+            /* 绝对定位 */
+            left: 20px;
+            /* 左侧间距 */
+            color: #000;
+            /* 黑色对勾 */
+        }
+
+        .myPop {
+            border: 1px solid #ccc;
+            width: 200px;
+            background: #fff;
+            position: fixed;
+            /* 固定定位，使弹窗脱离文档流固定在页面 */
+            top: 50%;
+            /* 向上偏移50% */
+            left: 50%;
+            /* 向左偏移50% */
+            transform: translate(-50%, -50%);
+            /* 反向平移元素一半尺寸，实现居中 */
+            z-index: 1000;
+            /* 设置层级，确保弹窗显示在页面上方 */
+        }
+
+        .myPop a:first-child {
+            background: #e0e0e0;
+            text-align: center;
+            padding: 10px;
+            pointer-events: none;
+            cursor: default;
+            font-size: 16px;
+            display: block;
+        }
+
+        .myPop button {
+            width: 100%;
+            border: none;
+            border-top: 1px solid #ccc;
+            padding: 12px;
+            text-align: center;
+            background: #fff;
+            cursor: pointer;
+            position: relative;
+            font-size: 16px;
+        }
+
+        .myPop button:first-child {
+            border-top: none;
+        }
+
+        .myPop button.checked::before {
+            content: "✓";
+            position: absolute;
+            left: 20px;
+            color: #000;
+        }
+    </style>
+    <title>心理倾诉墙</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 导航栏 -->
+        <div class="navbar">
+            <div class="navbar-left">
+                <a href="学习生涯首页.html">&gt;
+                </a>
+                <span>心理倾诉墙</span>
+            </div>
+            <div class="navbar-right">
+                <div class="dropdown">
+                    <button class="dropbtn">请选择分类</button>
+                    <span @click="isPop=!isPop">▼</span>
+
+                </div>
+                <button class="confirm-btn" @click="saveContent">确定</button>
+            </div>
+        </div>
+        <div v-if="isPop" class="myPop">
+            <a href="#">信息倾诉分类</a>
+            <button @click="isPop=!isPop;category='学习方面';saveClass();">学习方面</button>
+            <button @click="isPop=!isPop;category='个人情绪';saveClass();">个人情绪</button>
+            <button @click="isPop=!isPop;category='同学关系';saveClass();">同学关系</button>
+            <button @click="isPop=!isPop;category='师生关系';saveClass();">师生关系</button>
+            <button @click="isPop=!isPop;category='学校管理';saveClass();">学校管理</button>
+            <button @click="isPop=!isPop;category='家庭教育';saveClass();">家庭教育</button>
+            <button @click="isPop=!isPop;category='未来规划';saveClass();">未来规划</button>
+        </div>
+
+        <!-- 文本输入区域 -->
+        <div class="textarea-container">
+            <textarea v-model='content' placeholder="写评论..."></textarea>
+        </div>
+
+        <!-- 表情图标 -->
+        <span class="emoji-icon">&#128512;</span>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+        const app = createApp({
+            data() {
+                return {
+                    isPop: false,
+                    category: '',
+                    content: '',
+                    reply: '',
+                }
+            },
+            methods: {
+                saveClass() {
+                    fetch('http://localhost:3000/saveClass', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            category: this.category,
+                            studentId: localStorage.getItem('studentId'),
+                        })
+                    })
+                },
+                saveContent() {
+                    fetch('http://localhost:3000/saveContent', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            content: this.content,
+                            studentId: localStorage.getItem('studentId'),
+                        })
+                    })
+                }
+
+            },
+
+            created() {
+                // 在组件实例创建后调用获取学生 ID 的函数，即获取一些数据
+                this.reply = localStorage.getItem('reply');
+                console.log(this.reply);
+            },
+        }).mount('#app');
+
+        // 获取按钮和下拉菜单元素
+        const dropbtn = document.querySelector('.dropbtn');
+        const dropdownContent = document.querySelector('.dropdown-content');
+
+        // 给按钮添加点击事件监听器
+        dropbtn.addEventListener('click', function () {
+            // 切换下拉菜单的显示状态
+            if (dropdownContent.style.display === 'block') {
+                dropdownContent.style.display = 'none';
+            } else {
+                dropdownContent.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+
+</html>

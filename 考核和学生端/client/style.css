@@ -1,0 +1,172 @@
+/* 全局样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    transition: all 0.3s ease;
+}
+
+body {
+    /* 优化背景渐变颜色，更柔和清新 */
+    background: linear-gradient(135deg, #e1f5fe, #b3e5fc);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    position: relative;
+}
+
+body::before {
+    content: "夫百代之过客也，人生之逆旅也";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* 调整背景色透明度，让诗词更清晰可见 */
+    background-color: rgba(255, 255, 255, 0.3);
+    color: #263238;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.5;
+    z-index: -1;
+    filter: blur(2px);
+    /* 从数组中随机选取诗词 */
+    content: var(--random-poem);
+}
+
+#app {
+    /* 容器背景色变浅，与整体更协调 */
+    background-color: #fafafa;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    overflow: hidden;
+}
+
+h1,
+h2 {
+    /* 标题文字颜色加深，更突出 */
+    color: #263238;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 28px;
+    padding-top: 20px;
+}
+
+h2 {
+    font-size: 22px;
+}
+
+input {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 18px;
+    border: 1px solid #b0bec5;
+    border-radius: 6px;
+    font-size: 16px;
+    outline: none;
+    /* 输入框背景色变浅，有层次感 */
+    background-color: #f5f5f5;
+}
+
+input:focus {
+    border-color: #0288d1;
+    box-shadow: 0 0 5px rgba(2, 136, 209, 0.2);
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+    margin-bottom: 15px;
+    /* 按钮背景色使用鲜明的蓝色 */
+    background-color: #0288d1;
+}
+
+#learnCareer {
+    display: inline - block; /* 可以根据布局需求调整，这里设置行内块元素，方便设置宽高 */
+    width: 700px; 
+    padding: 14px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+    margin-bottom: 15px;
+    background-color: #0288d1;
+    text-decoration: none; /* 去除超链接默认的下划线 */
+}
+
+#learnCareer:hover {
+    background-color: #01579b; /* 鼠标悬停时，背景色变为更深的蓝色 */
+}
+
+button:hover {
+    /* 按钮悬停时颜色加深 */
+    background-color: #01579b;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 注册表单样式 */
+.register-form {
+    padding: 20px 30px;
+}
+
+/* 登录表单样式 */
+.login-form {
+    padding: 20px 30px;
+}
+
+/* 个人信息样式 */
+.user-info {
+    padding: 20px 30px;
+}
+
+.user-info p {
+    margin-bottom: 10px;
+    /* 个人信息文字颜色加深 */
+    color: #455a64;
+}
+
+/* 编辑信息表单样式 */
+.edit-form {
+    padding: 10px 30px;
+}
+
+/* 找回密码表单样式 */
+.find-password-form {
+    padding: 20px 30px;
+}
+
+/* 重置密码表单样式 */
+.reset-password-form {
+    padding: 20px 30px;
+}
+
+.hide {
+    display: none;
+}
+body {
+    /* 纯色背景，这里以浅灰色为例 */
+    background-color: #122861; 
+    /* 或者使用图片作为背景，假设图片在当前目录下，名为 background.jpg */
+    background-image: url('background.jpg');
+    /* 设置背景图片是否重复 */
+    /* background-repeat: no-repeat; */
+    /* 设置背景图片的位置，这里设置为居中 */
+    /* background-position: center; */
+    /* 设置背景图片是否固定，不随页面滚动而滚动 */
+    /* background-attachment: fixed; */
+}

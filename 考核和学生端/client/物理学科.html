@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="物理学科.css">
+    <title>物理课程页面</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+    <div id='app'>
+        <nav>
+            <a href="学习生涯首页.html" id="backLink">← 物理</a>
+            <select id="courseSelect">
+                <option value="必修1">必修1</option>
+            </select>
+            <select id="chapterSelect">
+                <option value="第一章 光学与电磁波">第一章 光学与电磁波</option>
+            </select>
+        </nav>
+        <div id="mainContent">
+            <div class="sectionButton" data-section="第一节 光的反射与折射" data-acceptance="80%">
+                第一节 光的反射与折射
+                <span class="acceptance">知识点接受度 <span class="percentage">{{first}}</span></span>
+                <span class="arrow" @click="isPop=!isPop">&gt;</span>
+                
+            </div>
+            <div v-if="isPop" class="Popup">
+                <ul>
+                    <li>知识点接受程度</li>
+                    <span v-if='showChoosed'>&#10004;</span><button @click="showChoosed=!showChoosed;newDegree[0]='100%'">100%</button>
+                    <button @click="newDegree[0]='80%'">80%</button>
+                    <button>60%</button>
+                    <button>40%</button>
+                    <button>20%</button>
+                    <button>0%</button>
+                    <button @click="updateDegree">确定</button>
+                </ul>
+            </div>
+            <div class="sectionButton" data-section="第二节 电磁波与电磁震荡" data-acceptance="40%">
+                第二节 电磁波与电磁震荡
+                <span class="acceptance">知识点接受度 <span class="percentage">{{second}}</span></span>
+                <span class="arrow">&gt;</span>
+                <div class="popup" style="display: none;">
+                    <!-- 这里添加六个按钮 -->
+                    <button>按钮1</button>
+                    <button>按钮2</button>
+                    <button>按钮3</button>
+                    <button>按钮4</button>
+                    <button>按钮5</button>
+                    <button>按钮6</button>
+                </div>
+            </div>
+            <div class="sectionButton" data-section="第三节 光的反射与折射" data-acceptance="60%">
+                第三节 光的反射与折射
+                <span class="acceptance">知识点接受度 <span class="percentage">{{third}}</span></span>
+                <span class="arrow">&gt;</span>
+                <div class="popup" style="display: none;">
+                    <!-- 这里添加六个按钮 -->
+                    <button>按钮1</button>
+                    <button>按钮2</button>
+                    <button>按钮3</button>
+                    <button>按钮4</button>
+                    <button>按钮5</button>
+                    <button>按钮6</button>
+                </div>
+            </div>
+            <div class="sectionButton" data-section="第四节 电磁波与电磁震荡">
+                第四节 电磁波与电磁震荡
+                <span class="acceptance">{{fourth}}</span>
+                <span class="arrow">&gt;</span>
+                <div class="popup" style="display: none;">
+                    <!-- 这里添加六个按钮 -->
+                    <button>按钮1</button>
+                    <button>按钮2</button>
+                    <button>按钮3</button>
+                    <button>按钮4</button>
+                    <button>按钮5</button>
+                    <button>按钮6</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="物理学科.js"></script>
+</body>
+
+</html>

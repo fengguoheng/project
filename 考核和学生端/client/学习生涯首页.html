@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学习生涯</title>
+    <link rel="stylesheet" href="学习生涯首页.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        .backdrop {
+            position: fixed;
+            /* 固定定位，覆盖整个页面 */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            /* 黑色半透明背景 */
+            z-index: 999;
+            /* 确保遮罩层在其他元素之上 */
+        }
+
+
+
+
+        
+
+        /* 新增：心理倾诉墙容器 */
+        .mental-wall {
+            margin: 20px;
+            padding: 15px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 头部布局 */
+        .wall-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        /* 头像样式 */
+        .wall-avatar {
+            width: 50px;
+            height: 50px;
+            background: #e0e0e0;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        /* 用户信息容器 */
+        .wall-user {
+            flex: 1;
+        }
+
+        /* 用户名称 */
+        .wall-name {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        /* 元数据信息 */
+        .wall-meta {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* 分类标签 */
+        .wall-category {
+            background: #00c7b6;
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 14px;
+        }
+
+        /* 内容区域 */
+        .wall-content {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        /* 回复按钮容器 */
+        .wall-reply-btn {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        /* 回复图标 */
+        .wall-reply-icon {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            text-align: center;
+            font-size: 18px;
+            line-height: 20px;
+        }
+
+        /* 回复内容列表 */
+        .wall-replies {
+            margin-left: 30px;
+        }
+
+        /* 单个回复项 */
+        .wall-reply-item {
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            background: #f5f5f5;
+            border-radius: 8px;
+        }
+
+        /* 新增评论按钮 */
+        .wall-add-comment {
+            display: block;
+            text-align: center;
+            padding: 12px 24px;
+            background: #00c7b6;
+            color: #fff;
+            border-radius: 24px;
+            text-decoration: none;
+            font-size: 16px;
+
+        }
+
+        .wall-add-comment:hover {
+            background: #00a89d;
+        }
+    </style>
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 导航栏 -->
+        <nav>
+            <a href="#">个性化学习</a>
+            <a href="#">动态 </a>
+            <a href="#">消息</a>
+            <a href="#" class="active">学习生涯</a>
+            <a href="#">关于12xue</a>
+            <div class="icons">
+
+            </div>
+        </nav>
+        <div class="container">学号：{{studentId}}</div>
+
+        <!-- 主体内容 -->
+        <main>
+            <!-- 优势和薄弱学科区域 -->
+            <div class="subject-summary">
+                <div class="summary-item">
+                    <span>个人优势学科</span>
+                    <div class="right-content">
+                        <!-- 使用 v-for 指令遍历 advantageSubjects 数组 -->
+                        <span v-for="subject in advantageSub" :key="subject">{{ subject }}</span>
+                        <span class="arrow" @click="showPop">></span>
+                    </div>
+                </div>
+                <div class="summary-item">
+                    <span>个人薄弱学科</span>
+                    <div class="right-content">
+                        <!-- 使用 v-for 指令遍历 advantageSubjects 数组 -->
+                        <span v-for="subject in weakSub" :key="subject">{{ subject }}</span>
+                        <span class="arrow" @click="showPop">></span>
+                    </div>
+                </div>
+                <!--弹窗优势学科-->
+                <div v-if="isPop" class="Popup">
+                    <ul>
+                        <li>个人优势学科</li>
+                        <li v-for="(subject, index) in subjects" :key="index">
+                            <button @click="toggleSelection(subject)">
+                                <span v-if="isSelected(subject)">✔</span>
+                                {{ subject }}
+                            </button>
+                        </li>
+                        <button @click="confirmSelection">确定</button>
+                    </ul>
+                </div>
+                <div v-if="isPop" class="backdrop" @click="isPop=false"></div>
+            </div>
+            <div class="container">
+                <span @click='mentalWall=false' class="active">章节知识点接受度</span>
+                <span @click='mentalWall=true' class="inactive">心理倾诉墙</span>
+            </div>
+            <div v-if="mentalWall" class="mental-wall">
+                <div class="wall-header">
+                    <div class="wall-avatar"></div>
+                    <div class="wall-user">
+                        <div class="wall-name">XXX</div>
+                        <div class="wall-meta">
+                            生涯规划老师 • 1小时前 • 来自iPhone客户端
+                        </div>
+                    </div>
+                    <div class="wall-category">{{category}}</div>
+                </div>
+                <div class="wall-content">{{content}}</div>
+                <div class="wall-reply-btn">
+                    <span class="wall-reply-icon">&rarr;</span>
+                    <span @click="replyPop=!replyPop">回复</span>
+                </div>
+                <div v-if="replyPop" class="wall-replies">
+                    <div v-for="(item, index) in anotherReply" :key="index" class="wall-reply-item">
+                        <p>{{ item }}</p>
+                    </div>
+                </div>
+                <a href="说点什么.html" class="wall-add-comment">说点什么</a>
+            </div>
+            <div v-if='!mentalWall' class="subject-container">
+                <div class="subject-item" data-url="page1.html">
+                    <h2>语文</h2>
+                    <p>总体接受程度 80%</p>
+                </div>
+                <div class="subject-item" data-url="page2.html">
+                    <h2>数学</h2>
+                    <p>总体接受程度 80%</p>
+                </div>
+                <div class="subject-item" data-url="page3.html">
+                    <h2>英语</h2>
+                    <p>总体接受程度 80%</p>
+                </div>
+                <div class="subject-item" data-url="物理学科.html">
+                    <h2>物理</h2>
+                    <p>总体接受程度 80%</p>
+                </div>
+                <div class="subject-item" data-url="page5.html">
+                    <h2>化学</h2>
+                    <p>总体接受程度 80%</p>
+                </div>
+                <div class="subject-item" data-url="page6.html">
+                    <h2>生物</h2>
+                    <p>总体接受程度 80%</p>
+                </div>
+                <div class="subject-item" data-url="page7.html">
+                    <h2>地理</h2>
+                    <p>总体接受程度 80%</p>
+                </div>
+                <div class="subject-item" data-url="page8.html">
+                    <h2>历史</h2>
+                    <p>总体接受程度 80%</p>
+                </div>
+                <div class="subject-item" data-url="page9.html">
+                    <h2>政治</h2>
+                    <p>总体接受程度 80%</p>
+                </div>
+                <div class="subject-item" data-url="page10.html">
+                    <h2>日语</h2>
+                    <p>总体接受程度 80%</p>
+                </div>
+                <div class="subject-item" data-url="page11.html">
+                    <h2>俄语</h2>
+                    <p>总体接受程度 80%</p>
+                </div>
+                <div class="subject-item" data-url="page12.html">
+                    <h2>其他</h2>
+                    <p>总体接受程度 80%</p>
+                </div>
+                <a href="老师讲课风格提醒.html"><svg hrefwidth="64" height="64" viewBox="0 0 64 64"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <rect x="8" y="8" width="48" height="48" fill="none" stroke="#00C7B6" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M16 16L48 48M16 48H48" stroke="#00C7B6" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </a>
+            </div>
+    </div>
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    isPop: false,
+                    studentId: '',
+                    studentName: '',
+                    advantageSub: '',
+                    weakSub: '',
+                    knowledgeDegree: '',
+                    selectedSubjects: [],
+                    mentalWall: false,
+                    category: '类型',
+                    reply: '回复',
+                    replyPop: false,
+                    anotherReply: [],
+                    subjects: [
+                        '语文',
+                        '数学',
+                        '英语',
+                        '物理',
+                        '化学',
+                        '生物',
+                        '地理',
+                        '历史',
+                        '政治',
+                        '日语',
+                        '俄语',
+                        '其他'
+                    ],
+                    content:'初始内容',
+                };
+            },
+            methods: {
+                to心理倾诉墙() {
+                    mentalWall = true;
+                },
+                showPop() {
+                    this.isPop = !this.isPop;
+                },
+                getStudentId() {
+                    this.studentId = localStorage.getItem('studentId') || '未获取到 ID';
+                    this.studentName = localStorage.getItem('studentName') || '未获取到姓名';
+                    this.advantageSub = localStorage.getItem('advantageSub') || '未获取到优势学科';
+                    this.weakSub = localStorage.getItem('weakSub') || '未获取到薄弱学科';
+                    this.knowledgeDegree = localStorage.getItem('knowledgeDegree') || '未获取到知识点接受度';
+                    console.log(this.knowledgeDegree);
+                    console.log(this.weakSub);
+                    console.log(4444444444444);
+                },
+                toggleSelection(subject) {
+                    if (this.selectedSubjects.includes(subject)) {
+                        this.selectedSubjects = this.selectedSubjects.filter(s => s !== subject);
+                    } else {
+                        this.selectedSubjects.push(subject);
+                    }
+                },
+                confirmSelection() {
+                    this.advantageSub = this.selectedSubjects;
+                    this.isPop = false;
+                    console.log("更新后的优势学科数组:", this.advantageSub);
+                    fetch('http://localhost:3000/updateAdvantageSub', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            studentId: this.studentId,
+                            advantageSub: this.advantageSub
+                        })
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(`HTTP error! status: ${response.status}`);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            console.log('更新成功', data);
+                        })
+                        .catch(error => {
+                            console.error('更新失败', error);
+                        });
+                },
+                isSelected(subject) {
+                    return this.selectedSubjects.includes(subject);
+                }
+
+            },
+            mounted() {
+                const subjectItems = document.querySelectorAll('.subject-item');
+                subjectItems.forEach((item) => {
+                    item.addEventListener('click', () => {
+                        const url = item.dataset.url;
+                        if (url) {
+                            console.log(localStorage.getItem('knowledgeDegree'));
+                            localStorage.setItem('knowledgeDegree', this.knowledgeDegree);
+                            console.log(this.knowledgeDegree);
+                            window.location.href = url;
+                        }
+                    });
+                });
+            },
+            created() {
+                // 在组件实例创建后调用获取学生 ID 的函数
+                localStorage.getItem('reply');
+                console.log(localStorage.getItem('reply'), 2);
+                console.log(localStorage.getItem('weakSub') || '未获取到知识点接受度', 1)
+                console.log(localStorage.getItem('knowledgeDegree') || '未获取到知识点接受度', 2);
+                this.getStudentId();
+                console.log(this.knowledgeDegree);
+                console.log(localStorage.getItem('knowledgeDegree'));
+                console.log(this.weakSub);
+                this.reply = localStorage.getItem('reply');
+                this.category = localStorage.getItem('category');
+                console.log(this.category);
+                this.anotherReply = localStorage.getItem('anotherReply');
+                console.log(this.anotherReply);
+                console.log(Array.isArray(this.anotherReply));
+                console.log(typeof (this.anotherReply));
+                this.anotherReply = this.anotherReply.split(','); // 按逗号分割
+                this.content=localStorage.getItem('content');
+                console.log(this.content);
+            }
+        }).mount('#app');
+        // 新增的点击切换网页代码
+
+    </script>
+</body>
+
+</html>

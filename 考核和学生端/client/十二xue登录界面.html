@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="十二xue登录界面.css">
+    <title>练习</title>
+</head>
+
+<body>
+    <div id="app">
+        <div class="login-container">
+            <h2>十二xue学生登录</h2>
+            <form @submit.prevent="login">
+                <input v-model="studentName" type="text" placeholder="姓名">
+                <input v-model="studentId" type="text" placeholder="学号">
+                <input v-model="studentPassword" type="password" placeholder="密码">
+                <button type="submit">登录</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+<script>
+    const { createApp } = Vue;
+    const app = createApp({
+        data() {
+            return {
+                studentName: '',
+                studentId: '',
+                studentPassword: '',
+                isLoginned: false,
+                advantageSub: [],
+                weakSub: [],
+                knowledgeDegree: [],
+                reply:'',
+            };
+        },
+        methods: {
+            login() {
+                // 发起一个 POST 请求来验证用户登录
+                fetch("http://localhost:3000/login", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: this.studentName,
+                        id: this.studentId,
+                        password: this.studentPassword
+                    })
+                })
+                    .then(response => {
+                        // 检查响应状态是否为 200 - 299 之间，表示请求成功
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        // 将响应数据解析为 JSON 格式
+                        return response.json();
+                    })
+                    .then(data => {
+                        // 处理解析后的 JSON 数据，这里简单地将数据打印到控制台
+                        console.log('登录成功89', data);
+                        console.log(999);
+                        this.advantageSub = data.advantageSub;
+                        console.log(888);
+                        this.weakSub = data.weakSub;
+                        console.log(777);
+                        localStorage.setItem('studentId', this.studentId);
+                        console.log(666);
+                        localStorage.setItem('studentName', this.studentName);
+                        localStorage.setItem('studentPassword', this.studentPassword);
+                        localStorage.setItem('advantageSub', this.advantageSub);
+                        console.log(555);
+                        localStorage.setItem('weakSub', this.weakSub);
+                        this.knowledgeDegree = data.knowledgeDegree;
+                        localStorage.setItem('knowledgeDegree', this.knowledgeDegree);
+                        console.log(444);
+                        console.log(localStorage.getItem('knowledgeDegree'));
+                        console.log(this.knowledgeDegree);
+                        console.log(this.studentId);
+                        console.log(333);
+                        console.log(this.weakSub);
+                        console.log(222);
+                        console.log(3333333333333333);
+                        //console.log(advantageSub);
+                        this.reply = data.reply;
+                        localStorage.setItem('reply', this.reply);
+                        localStorage.getItem('reply');
+                        console.log(localStorage.getItem('reply'));
+                        console.log('333');
+                        localStorage.setItem('category', data.category);
+                        console.log(localStorage.getItem('category'));
+                        console.log(data.category);
+                        localStorage.setItem('anotherReply', data.anotherReply);
+                        console.log(localStorage.getItem('anotherReply'));
+                        console.log(data.anotherReply);
+                        localStorage.setItem('result',data.result);
+                        console.log(localStorage.getItem('result'));
+                        localStorage.setItem('content',data.content);
+                        console.log(localStorage.getItem('content'));
+                        console.log(data.content);
+                        
+
+                        
+                        
+
+
+                        window.location.href = 'uniqueLearn.html';
+                    })
+                    .catch(error => {
+                        // 捕获请求过程中发生的错误，并将错误信息打印到控制台
+                        console.error('登录失败77', error);
+                    });
+            },
+        }
+    }).mount('#app');
+</script>
+
+</html>

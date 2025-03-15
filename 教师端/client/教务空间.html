@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>教务空间</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        .top-bar {
+            background-color: #3cb371;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-bar-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .top-bar-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .top-bar span {
+            margin-right: 15px;
+        }
+
+        .message-badge {
+            position: relative;
+        }
+
+        .message-badge::after {
+            content: "2";
+            position: absolute;
+            top: -5px;
+            right: -8px;
+            background-color: #ff0000;
+            color: white;
+            font-size: 12px;
+            padding: 2px 5px;
+            border-radius: 50%;
+        }
+
+        .main-nav {
+            background-color: #5f9ea0;
+            padding: 15px 20px;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            margin-right: 50px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-right: 30px;
+        }
+
+        .search-box {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-box select {
+            padding: 5px 10px;
+            margin-right: 5px;
+        }
+
+        .search-box input {
+            padding: 5px 10px;
+            border: none;
+        }
+
+        .search-box button {
+            padding: 5px 10px;
+            border: none;
+            background-color: #5f9ea0;
+            color: white;
+        }
+    </style>
+    <style>
+        body {
+            background: #f5f5f5;
+            font-family: Arial, sans-serif;
+        }
+
+        .sidebar {
+            width: 220px;
+            margin: 20px;
+        }
+
+        .module {
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .module-header {
+            padding: 15px;
+            color: #52c41a;
+            display: flex;
+            align-items: center;
+        }
+
+        .module-header::before {
+            content: "||";
+            margin-right: 10px;
+        }
+
+        .module-content {
+            padding: 10px 30px;
+        }
+
+        .item {
+            color: #999;
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .item::before {
+            content: "";
+            width: 16px;
+            height: 16px;
+            margin-right: 10px;
+            background: #f5f5f5;
+            border-radius: 2px;
+        }
+
+        .active {
+            color: #52c41a;
+        }
+
+        .border-module {
+            border: 1px solid #ccc;
+        }
+    </style>
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .layout-container {
+            display: flex;
+            margin: 20px;
+        }
+
+        .sidebar {
+            width: 220px;
+            padding: 15px;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 15px;
+        }
+
+        .module {
+            background: #fff;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            padding: 15px;
+        }
+
+        .item {
+            margin: 8px 0;
+            color: #666;
+        }
+    </style>
+
+    <style>
+        .exam-ranking-container {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .step-bar {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 20px;
+            border: 1px solid #e8e8e8;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .step-text {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .action-btn {
+            padding: 6px 12px;
+            border: 1px solid #13c2c2;
+            color: #13c2c2;
+            background: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .filter-select {
+            padding: 8px 15px;
+            border: 1px solid #d9d9d9;
+            border-radius: 4px;
+            outline: none;
+        }
+
+        .exam-card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+
+        .exam-card {
+            border: 1px solid #e0f2f1;
+            border-radius: 8px;
+            padding: 15px;
+            background: #fff;
+        }
+
+        .exam-title {
+            color: #333;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .upload-time {
+            color: #666;
+            font-size: 12px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .delete-btn {
+            background: #ff4949;
+            color: #fff;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 2px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="top-bar">
+            <div class="top-bar-left">
+                <span>12xue 老师同学家长共同成长的天地！</span>
+            </div>
+            <div class="top-bar-right">
+                <span>欢迎{{teacherName}}老师！</span>
+                <span>🎒 12习题+6素材</span>
+                <div class="message-badge">消息</div>
+                <span>个人中心</span>
+                <span>班级设置</span>
+                <span>使用帮助</span>
+                <span>退出</span>
+            </div>
+        </div>
+        <div class="main-nav">
+            <div class="nav-container">
+                <div class="logo">十二学学校</div>
+                <div class="nav-links">
+                    <a href="#">教学空间</a>
+                    <a href="#">教务空间</a>
+                    <a href="#">学情分析</a>
+                    <a href="#">资源广场</a>
+                    <a href="#">12xue广角</a>
+                </div>
+                <div class="search-box">
+                    <select>
+                        <option>全部</option>
+                        <option>习题</option>
+                        <option>素材</option>
+                    </select>
+                    <input type="text" placeholder="搜索">
+                    <button>搜索</button>
+                </div>
+            </div>
+        </div>
+        <div class="layout-container">
+            <div class="sidebar">
+                <div class="module">
+                    <div class="module-header">统计</div>
+                    <div class="module-content">
+                        <div class="item"><span class="active">线下学生考试测评排名</span></div>
+                        <div class="item">活跃度统计</div>
+                        <div class="item">课堂使用统计</div>
+                        <div class="item">作业使用统计</div>
+                        <div class="item">校本资源统计</div>
+                        <div class="item">作业未完成统计</div>
+                        <div class="item">学生生涯规划分析</div>
+                    </div>
+                </div>
+
+                <div class="module border-module">
+                    <div class="module-header">生涯规划</div>
+                    <div class="module-content">
+                        <div @click="goTo" class="item">生涯规划师记录管理</div>
+                        <div class="item">生涯规划师权限管理</div>
+                    </div>
+                </div>
+
+                <div class="module">
+                    <div class="module-header">用户管理</div>
+                    <div class="module-content">
+                        <div class="item">老师管理</div>
+                        <div class="item">家长管理</div>
+                        <div class="item">学生管理</div>
+                        <div class="item">管理人员设置</div>
+                        <div class="item">角色管理</div>
+                        <div class="item">老师邀请码管理</div>
+                    </div>
+                </div>
+
+                <div class="module">
+                    <div class="module-header">其他</div>
+                    <div class="module-content">
+                        <div class="item">校本资源审核</div>
+                        <div class="item">校本封面管理</div>
+                    </div>
+                </div>
+            </div>
+            <div class="exam-ranking-container">
+                <h3>线下学生考试测评排名</h3>
+                <div class="step-bar">
+                    <span>1.请先下载模板</span>
+                    <button>下载模板</button>
+                    <span>2.填写学生成绩数据</span>
+                    <span>3.导入填写完成的数据</span>
+                    <button>导入数据</button>
+                </div>
+                <div class="filter-group">
+                    <select>
+                        <option>2024-2025学年度</option>
+                    </select>
+                    <select>
+                        <option>2023级</option>
+                    </select>
+                </div>
+                <div class="exam-card-grid">
+                    <div class="exam-card">
+                        <div @click="goTo2024"class="exam-title">2024年高考适应性测试</div>
+                        <div class="upload-time">上传时间：2025-05-05 15:16</div>
+                        <button class="delete-btn">删除</button>
+                    </div>
+                    <div class="exam-card">
+                        <div class="exam-title">2024年第一学期期中考试</div>
+                        <div class="upload-time">上传时间：2025-05-05 15:16</div>
+                        <button class="delete-btn">删除</button>
+                    </div>
+                    <div class="exam-card">
+                        <div class="exam-title">2024年第一学期期中考试</div>
+                        <div class="upload-time">上传时间：2025-05-05 15:16</div>
+                        <button class="delete-btn">删除</button>
+                    </div>
+                    <div class="exam-card">
+                        <div class="exam-title">2024年第一学期期末考试</div>
+                        <div class="upload-time">上传时间：2025-05-05 15:16</div>
+                        <button class="delete-btn">删除</button>
+                    </div>
+                    <div class="exam-card">
+                        <div class="exam-title">2024年第二学期期末考试</div>
+                        <div class="upload-time">上传时间：2025-05-05 15:16</div>
+                        <button class="delete-btn">删除</button>
+                    </div>
+                    <div class="exam-card">
+                        <div class="exam-title">2024年第二学期期中考试</div>
+                        <div class="upload-time">上传时间：2025-05-05 15:16</div>
+                        <button class="delete-btn">删除</button>
+                    </div>
+                    <div class="exam-card">
+                        <div class="exam-title">2024年第二学期摸底考试考试考...</div>
+                        <div class="upload-time">上传时间：2025-05-05 15:16</div>
+                        <button class="delete-btn">删除</button>
+                    </div>
+                    <div class="exam-card">
+                        <div class="exam-title">2024年第二学期期末考试</div>
+                        <div class="upload-time">上传时间：2025-05-05 15:16</div>
+                        <button class="delete-btn">删除</button>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        const { createApp } = Vue;
+        const app = createApp({
+            data() {
+                return {
+                    teacherName: ""
+                };
+            },
+            methods: {
+                goTo(){
+                    window.location.href = '生涯规划师记录管理.html';
+                },
+                goTo2024(){
+                    window.location.href="2024年测试.html";
+
+                }
+                    
+            },
+            created() {
+                this.teacherName = localStorage.getItem('teacherName');
+            }
+        });
+        app.mount('#app');
+    </script>
+</body>
+
+</html>
